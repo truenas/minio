@@ -1,0 +1,11 @@
+[Unit]
+Description=High Performance Object Storage
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/minio-truenas
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,15 @@
+Source: minio
+Section: admin
+Priority: optional
+Maintainer: Vladimir Vinogradenko <vladimirv@ixsystems.com>
+Build-Depends: debhelper-compat (= 12), wget
+Standards-Version: 4.4.0
+Homepage: https://min.io
+
+Package: minio
+Architecture: amd64
+Depends: python3
+Description: High Performance Object Storage
+ MinIO's high-performance, software-defined object storage suite
+ enables customers to build cloud-native data infrastructure for
+ machine learning, analytics and application data workloads.
