@@ -26,6 +26,9 @@ with Client() as c:
         s3["storage_path"],
     ]
 
+    if s3["certificate"]:
+        os.environ["MINIO_SERVER_URL"] = f'https://{s3["tls_server_uri"]}:{s3["bindport"]}'
+
     os.environ["MINIO_ACCESS_KEY"] = s3["access_key"]
     os.environ["MINIO_SECRET_KEY"] = s3["secret_key"]
     if not s3["browser"]:
