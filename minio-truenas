@@ -22,6 +22,7 @@ with Client() as c:
         "minio", "server",
         "-S", "/usr/local/etc/minio/certs",
         "--address", f'{s3["bindip"]}:{s3["bindport"]}',
+        "--console-address", f'{s3["bindip"]}:{s3["console_bindport"]}',
         "--quiet",
         s3["storage_path"],
     ]
