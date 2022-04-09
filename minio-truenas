@@ -29,6 +29,7 @@ with Client() as c:
 
     if s3["certificate"]:
         os.environ["MINIO_SERVER_URL"] = f'https://{s3["tls_server_uri"]}:{s3["bindport"]}'
+        os.environ["MINIO_DOMAIN"] = s3["tls_server_uri"]
 
     os.environ["MINIO_ACCESS_KEY"] = s3["access_key"]
     os.environ["MINIO_SECRET_KEY"] = s3["secret_key"]
