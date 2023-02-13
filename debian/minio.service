@@ -1,11 +1,26 @@
 [Unit]
 Description=High Performance Object Storage
 After=network.target
+AssertFileIsExecutable=/usr/bin/minio
+AssertFileIsExecutable=/usr/bin/minio-truenas
+AssertFileIsExecutable=/usr/bin/minio-truenas-prepare
 
 [Service]
+ExecStartPre=+/usr/bin/minio-truenas-prepare
 ExecStart=/usr/bin/minio-truenas
+User=minio
+Group=minio
 Restart=on-failure
 RestartSec=10
+
+NoNewPrivileges=yes
+ProtectProc=invisible
+ProtectSystem=strict
+ProtectHome=yes
+RestrictSUIDSGID=yes
+ReadWritePaths=/mnt
+ProtectClock=yes
+PrivateTmp=false
 
 [Install]
 WantedBy=multi-user.target

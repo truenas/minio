@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+import os
+import sys
+
+from middlewared.client import Client
+
+with Client() as c:
+    s3 = c.call("s3.config")
+
+    if not os.path.isdir(s3["storage_path"]):
+        sys.stderr.write(f'{s3["storage_path"]} does not exist or is not a directory\n')
+        sys.exit(1)
+
+    os.chown(
+        s3["storage_path"],
+        c.call('dscache.get_uncached_user', 'minio')['pw_uid'],
+        c.call('dscache.get_uncached_group', 'minio')['gr_gid'],
+    )

@@ -11,15 +11,8 @@ with Client() as c:
         sys.stderr.write(f'{s3["storage_path"]} does not exist or is not a directory\n')
         sys.exit(1)
 
-    os.chown(
-        s3["storage_path"],
-        c.call('dscache.get_uncached_user', 'minio')['pw_uid'],
-        c.call('dscache.get_uncached_group', 'minio')['gr_gid'],
-    )
-
     cmd = [
-        "sudo", "-E", "-u", "minio",
-        "minio", "server",
+        "server",
         "-S", "/usr/local/etc/minio/certs",
         "--address", f'{s3["bindip"]}:{s3["bindport"]}',
         "--console-address", f'{s3["bindip"]}:{s3["console_bindport"]}',
@@ -36,6 +29,6 @@ with Client() as c:
         os.environ["MINIO_BROWSER"] = "off"
 
     os.execv(
-        b"/usr/bin/sudo",
+        b"/usr/bin/minio",
         [arg.encode() for arg in cmd],
     )
